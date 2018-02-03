@@ -1,8 +1,10 @@
 FROM microsoft/aspnetcore-build:2.0
 
-WORKDIR /src
+WORKDIR /src/app
 
-COPY worker.csproj .
+COPY core/core.csproj /src/core/core.csproj
+COPY common/common.csproj /src/common/common.csproj
+COPY worker/worker.csproj .
 RUN dotnet restore
 
 COPY . .
