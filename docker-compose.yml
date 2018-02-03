@@ -12,6 +12,16 @@ services:
     depends_on:
       - redis
 
+  worker1:
+    image: worker
+    build: ./src/worker
+    stdin_open: true
+    tty: true
+    environment:
+      - ASPNETCORE_ENVIRONMENT=development
+    depends_on:
+      - redis
+
   redis:
     image: redis:4-alpine
     volumes:
