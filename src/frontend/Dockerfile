@@ -7,5 +7,7 @@ COPY common/common.csproj /src/common/common.csproj
 COPY frontend/frontend.csproj .
 RUN dotnet restore
 
-COPY . .
+COPY core/ /src/core/
+COPY common/ /src/common/
+COPY frontend/ ./
 CMD dotnet run

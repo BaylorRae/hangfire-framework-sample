@@ -7,5 +7,7 @@ COPY common/common.csproj /src/common/common.csproj
 COPY worker/worker.csproj .
 RUN dotnet restore
 
-COPY . .
+COPY core/ /src/core/
+COPY common/ /src/common/
+COPY worker/ ./
 CMD dotnet run
