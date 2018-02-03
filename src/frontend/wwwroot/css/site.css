@@ -1,35 +1,130 @@
 ﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+    background: #10ADED;
 }
 
-/* Wrapping element */
-/* Set some basic padding to keep content from hitting the edges */
+h2 {
+    color: #000;
+    margin: 10px 0 20px;
+    text-align: center;
+}
+
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+    background: #fff;
+    margin-top: 40px;
+    border-radius: 20px;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    color: #666;
 }
 
-/* Carousel */
-.carousel-caption p {
-    font-size: 20px;
-    line-height: 1.4;
-}
-
-/* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
+.content {
     width: 100%;
+    flex-grow: 1;
+    padding: 15px 0;
 }
 
-/* QR code generator */
-#qrCode {
-    margin: 15px;
+.site-footer {
+    text-align: center;
+    border-top: 1px solid #dddddd;
+    align-self: flex-end;
+    width: 100%;
+    padding: 15px 0;
 }
 
-/* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
-    /* Hide captions */
-    .carousel-caption {
-        display: none;
-    }
+.cards {
+    display: flex;
+}
+
+.card {
+    display: flex;
+    flex-grow: 1;
+    background: #eee;
+    margin: 5px;
+    height: 175px;
+    border-radius: 10px;
+    padding: 10px;
+    padding-bottom: 0;
+    transition: background-size 0.3s ease-in-out,
+                background-position 0.3s ease-in-out;
+}
+
+.card-title {
+    width: calc(100% + 20px);
+    align-self: flex-end;
+    text-align: center;
+    background-color: #ddd;
+    margin-left: -10px;
+    margin-right: -10px;
+    border-radius: 0 0 10px 10px;
+    padding: 10px 0;
+    transition: background-color 0.4s ease-in-out;
+}
+
+.card:hover {
+    text-decoration: none;
+}
+
+
+.card.long-task {
+    background-image: url("/images/long-task.jpg");
+    background-position: center center;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-color: #000; 
+}
+
+.card.long-task .card-title {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    text-shadow: 0 1px 1px #000000;
+}
+
+.card.long-task:hover {
+    background-size: 110%;
+}
+
+.card.long-task:hover .card-title {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.card.repeating-task {
+    background-image: url("/images/repeating-task.jpeg");
+    background-position: center -70px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-color: #394541;
+}
+
+.card.repeating-task .card-title {
+    background-color: rgba(57, 69, 65, 0.7);
+    color: #fff;
+}
+
+.card.repeating-task:hover {
+    background-size: 110%;
+    background-position: center -80px;
+}
+
+.card.repeating-task:hover .card-title {
+    background-color: rgba(57, 69, 65, 0.9);
+}
+
+.card.dashboard {
+    background-image: url("/images/dashboard.jpeg");
+    background-position: center center;
+    background-size: 100%; 
+}
+
+.card.dashboard .card-title {
+    background-color: rgba(255, 181, 27, 0.8);
+    color: #000;
+}
+
+.card.dashboard:hover {
+    background-size: 110%;
+}
+
+.card.dashboard:hover .card-title {
+    background-color: rgba(255, 181, 27, 0.9);
 }
