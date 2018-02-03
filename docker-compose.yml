@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:
+  
+  frontend:
+    image: frontend
+    build: ./src/frontend
+    environment:
+      - ASPNETCORE_ENVIRONMENT=development
+    ports:
+      - 5000:80
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:4-alpine
+    volumes:
+      - ./redis-db:/data
