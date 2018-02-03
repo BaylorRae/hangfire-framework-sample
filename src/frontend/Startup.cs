@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using common;
 using frontend.Lib;
 using Hangfire;
 using Microsoft.AspNetCore.Builder;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using services;
 using StackExchange.Redis;
 
 namespace frontend
@@ -29,6 +31,8 @@ namespace frontend
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.AddHangefireFrameworkSerivces();
 
             services.AddHangfire(options =>
             {

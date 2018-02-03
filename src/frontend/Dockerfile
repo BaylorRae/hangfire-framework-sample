@@ -4,10 +4,12 @@ WORKDIR /src/app
 
 COPY core/core.csproj /src/core/core.csproj
 COPY common/common.csproj /src/common/common.csproj
+COPY services/services.csproj /src/services/services.csproj
 COPY frontend/frontend.csproj .
 RUN dotnet restore
 
 COPY core/ /src/core/
 COPY common/ /src/common/
+COPY services/ /src/services/
 COPY frontend/ ./
 CMD dotnet run
