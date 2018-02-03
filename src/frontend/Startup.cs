@@ -32,7 +32,7 @@ namespace frontend
         {
             services.AddMvc();
 
-            services.AddHangefireFrameworkSerivces();
+            services.AddHangfireFrameworkServices();
 
             services.AddHangfire(options =>
             {

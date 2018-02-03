@@ -6,7 +6,7 @@ namespace common
     public static class ConfigureIoC
     {
 
-        public static void AddHangefireFrameworkSerivces(this IServiceCollection serviceCollection)
+        public static void AddHangfireFrameworkServices(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddTransient<ITaskService, TaskService>();
         }

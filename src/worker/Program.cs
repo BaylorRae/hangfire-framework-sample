@@ -12,7 +12,7 @@ namespace worker
         {
             var serviceCollection = new ServiceCollection();
             
-            serviceCollection.AddHangefireFrameworkSerivces();
+            serviceCollection.AddHangfireFrameworkServices();
             
             var redis = ConnectionMultiplexer.Connect("redis");
 
