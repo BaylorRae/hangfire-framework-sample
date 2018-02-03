@@ -2,6 +2,8 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices.ComTypes;
 using System.Threading;
+using core;
+using services.Jobs;
 
 namespace services
 {
@@ -13,14 +15,17 @@ namespace services
         
     public class TaskService : ITaskService
     {
+        private IJobRunner JobRunner { get; }
+
+        public TaskService(IJobRunner jobRunner)
+        {
+            JobRunner = jobRunner;
+        }
+        
         public void LongRunningTask()
         {
-            Console.WriteLine("LongRunningTask: Started");
-
-            var stopWatch = Stopwatch.StartNew();
-            Thread.Sleep(TimeSpan.FromSeconds(2));
-            
-            Console.WriteLine($"LongRunningTask: Finished ({stopWatch.Elapsed})");
+            Console.WriteLine("Queue: LongRunningTask");
+            JobRunner.QueueLongRunningJob(options => { options.TaskTime = 10; });
         }
 
         public void RepeatingTask()

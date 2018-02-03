@@ -6,6 +6,7 @@
     <PackageReference Include="Hangfire" Version="1.6.17" />
     <PackageReference Include="Hangfire.Redis.StackExchange.StrongName" Version="1.7.0" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
+    <PackageReference Include="StructureMap.Microsoft.DependencyInjection" Version="1.4.0" />
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.2" />

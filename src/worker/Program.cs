@@ -3,6 +3,7 @@ using common;
 using Hangfire;
 using Microsoft.Extensions.DependencyInjection;
 using StackExchange.Redis;
+using StructureMap;
 
 namespace worker
 {
@@ -10,15 +11,15 @@ namespace worker
     {
         static void Main(string[] args)
         {
-            var serviceCollection = new ServiceCollection();
+            var container = new Container();
             
-            serviceCollection.AddHangfireFrameworkServices();
+            container.AddHangfireFrameworkServices();
             
             var redis = ConnectionMultiplexer.Connect("redis");
 
             GlobalConfiguration.Configuration.UseRedisStorage(redis);
             GlobalConfiguration.Configuration.UseActivator(
-                new WorkerActivator(serviceCollection.BuildServiceProvider(false))
+                new WorkerActivator(container)
             );
 
             using (var server = new BackgroundJobServer())
@@ -31,13 +32,13 @@ namespace worker
 
     internal class WorkerActivator : JobActivator
     {
-        private IServiceProvider ServiceProvider { get; }
+        private IContainer Container { get; }
         
-        public WorkerActivator(IServiceProvider serviceProvider)
+        public WorkerActivator(IContainer container)
         {
-            ServiceProvider = serviceProvider;
+            Container = container;
         }
 
-        public override object ActivateJob(Type jobType) => ServiceProvider.GetService(jobType);
+        public override object ActivateJob(Type jobType) => Container.GetInstance(jobType);
     }
 }
