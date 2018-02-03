@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="738px" height="577px" viewBox="0 0 738 577" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="background: #FFFFFF;">
+    <!-- Generator: Sketch 43.2 (39069) - http://www.bohemiancoding.com/sketch -->
+    <title>dependency-graph</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="dependency-graph">
+            <rect id="Rectangle" fill="#7B75FB" x="41" y="62" width="303" height="82" rx="8"></rect>
+            <rect id="Rectangle" fill="#7B75FB" x="41" y="62" width="322" height="82" rx="8"></rect>
+            <text id="frontend" font-family="HelveticaNeue, Helvetica Neue" font-size="24" font-weight="normal" letter-spacing="1.99636412" fill="#FFFFFF">
+                <tspan x="149.110544" y="109">frontend</tspan>
+            </text>
+            <rect id="Rectangle" fill="#7B75FB" x="41" y="188" width="664" height="82" rx="8"></rect>
+            <rect id="Rectangle" fill="#2DDDAC" x="41" y="188" width="664" height="82" rx="8"></rect>
+            <text id="Common" font-family="HelveticaNeue, Helvetica Neue" font-size="24" font-weight="normal" letter-spacing="1.99636412" fill="#21623A">
+                <tspan x="317.426908" y="235">Common</tspan>
+            </text>
+            <rect id="Rectangle" fill="#42AFD3" x="41" y="308" width="664" height="82" rx="8"></rect>
+            <text id="Services" font-family="HelveticaNeue, Helvetica Neue" font-size="24" font-weight="normal" letter-spacing="1.99636412" fill="#FFFFFF">
+                <tspan x="319.061725" y="355">Services</tspan>
+            </text>
+            <rect id="Rectangle" fill="#7B75FB" x="41" y="437" width="664" height="82" rx="8"></rect>
+            <rect id="Rectangle" fill="#C77044" x="41" y="437" width="664" height="82" rx="8"></rect>
+            <text id="Core" font-family="HelveticaNeue, Helvetica Neue" font-size="24" font-weight="normal" letter-spacing="1.99636412" fill="#FFFFFF">
+                <tspan x="343.046453" y="484">Core</tspan>
+            </text>
+            <rect id="Rectangle" fill="#7B75FB" x="383" y="62" width="322" height="82" rx="8"></rect>
+            <text id="worker" font-family="HelveticaNeue, Helvetica Neue" font-size="24" font-weight="normal" letter-spacing="1.99636412" fill="#FFFFFF">
+                <tspan x="501.362908" y="109">worker</tspan>
+            </text>
+            <polygon id="Rectangle-2" fill="#D8D8D8" transform="translate(373.029437, 422.029437) rotate(-45.000000) translate(-373.029437, -422.029437) " points="360.987807 409.987807 385.071068 409.987807 385.071068 434.071068"></polygon>
+            <polygon id="Rectangle-2" fill="#D8D8D8" transform="translate(373.029437, 300.029437) rotate(-45.000000) translate(-373.029437, -300.029437) " points="360.987807 287.987807 385.071068 287.987807 385.071068 312.071068"></polygon>
+            <polygon id="Rectangle-2" fill="#D8D8D8" transform="translate(313.029437, 174.029437) rotate(-80.000000) translate(-313.029437, -174.029437) " points="300.987807 161.987807 325.071068 161.987807 325.071068 186.071068"></polygon>
+            <polygon id="Rectangle-2" fill="#D8D8D8" transform="translate(426.029437, 174.029437) scale(-1, 1) rotate(-80.000000) translate(-426.029437, -174.029437) " points="413.987807 161.987807 438.071068 161.987807 438.071068 186.071068"></polygon>
+        </g>
+    </g>
+</svg>

@@ -11,6 +11,8 @@ services:
       - ASPNETCORE_ENVIRONMENT=development
     ports:
       - 5000:80
+    volumes:
+      - ./src/frontend:/src/app
     depends_on:
       - redis
 
