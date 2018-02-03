@@ -123,7 +123,6 @@ h2 {
 
 .card.dashboard:hover {
     background-size: 110%;
-    background-position: center -70px;
 }
 
 .card.dashboard:hover .card-title {
