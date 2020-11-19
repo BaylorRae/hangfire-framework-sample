@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using common;
+﻿using common;
 using frontend.Lib;
 using Hangfire;
+using Lamar;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
-using services;
+using Microsoft.Extensions.Hosting;
 using StackExchange.Redis;
-using StructureMap;
 
 namespace frontend
 {
@@ -29,27 +24,25 @@ namespace frontend
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public IServiceProvider ConfigureServices(IServiceCollection services)
+        public void ConfigureContainer(ServiceRegistry services)
         {
-            services.AddMvc();
+            // Also exposes Lamar specific registrations
+            // and functionality
+            services.IncludeRegistry<CommonRegistry>();
+            services.Scan(s =>
+            {
+                s.TheCallingAssembly();
+                s.WithDefaultConventions();
+            });
+            services.AddControllersWithViews();
             services.AddHangfire(options =>
             {
                 options.UseRedisStorage(RedisConnection);
             });
-
-            var container = new Container();
-            container.AddHangfireFrameworkServices();
-            
-            container.Configure(_ =>
-            {
-                _.Populate(services);
-            });
-
-            return container.GetInstance<IServiceProvider>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -61,17 +54,17 @@ namespace frontend
             }
 
             app.UseStaticFiles();
-
-            app.UseHangfireDashboard("/hangfire", new DashboardOptions
+            app.UseRouting();
+            app.UseHangfireDashboard("/dashboard", new DashboardOptions
             {
                 Authorization = new[] {new DashboardAuthorizationFilter()}
             });
 
-            app.UseMvc(routes =>
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
+                endpoints.MapControllerRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

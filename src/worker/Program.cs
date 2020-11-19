@@ -1,9 +1,8 @@
 ﻿using System;
 using common;
 using Hangfire;
-using Microsoft.Extensions.DependencyInjection;
+using Lamar;
 using StackExchange.Redis;
-using StructureMap;
 
 namespace worker
 {
@@ -11,9 +10,9 @@ namespace worker
     {
         static void Main(string[] args)
         {
-            var container = new Container();
-            
-            container.AddHangfireFrameworkServices();
+            var container = new Container(_ => {
+                _.IncludeRegistry<CommonRegistry>();
+            });
             
             var redis = ConnectionMultiplexer.Connect("redis");
 
@@ -32,13 +31,13 @@ namespace worker
 
     internal class WorkerActivator : JobActivator
     {
-        private IContainer Container { get; }
-        
+        private readonly IContainer _container;
+
         public WorkerActivator(IContainer container)
         {
-            Container = container;
+            _container = container;
         }
 
-        public override object ActivateJob(Type jobType) => Container.GetInstance(jobType);
+        public override object ActivateJob(Type jobType) => _container.GetInstance(jobType);
     }
 }
