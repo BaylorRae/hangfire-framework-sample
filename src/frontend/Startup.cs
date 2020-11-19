@@ -48,7 +48,7 @@ namespace frontend
 
             app.UseStaticFiles();
             app.UseRouting();
-            app.UseHangfireDashboard("/dashbard", new DashboardOptions
+            app.UseHangfireDashboard("/dashboard", new DashboardOptions
             {
                 Authorization = new[] {new DashboardAuthorizationFilter()}
             });
