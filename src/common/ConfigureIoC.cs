@@ -2,20 +2,16 @@
 using Hangfire;
 using Microsoft.Extensions.DependencyInjection;
 using services;
-using StructureMap;
 
 namespace common
 {
     public static class ConfigureIoC
     {
-        public static void AddHangfireFrameworkServices(this IContainer container)
+        public static void AddHangfireFrameworkServices(this IServiceCollection services)
         {
-            container.Configure(_ =>
-            {
-                _.For<IBackgroundJobClient>().Use<BackgroundJobClient>();
-                _.For<IJobRunner>().Use<JobRunner>();
-                _.For<ITaskService>().Use<TaskService>();
-            });
+            services.AddTransient<IBackgroundJobClient, BackgroundJobClient>();
+            services.AddTransient<IJobRunner,JobRunner>();
+            services.AddTransient<ITaskService, TaskService>();            
         }
     }
 }

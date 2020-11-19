@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using common;
+﻿using common;
 using frontend.Lib;
 using Hangfire;
 using Microsoft.AspNetCore.Builder;
@@ -10,10 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
-using services;
 using StackExchange.Redis;
-using StructureMap;
 
 namespace frontend
 {
@@ -30,7 +23,7 @@ namespace frontend
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public IServiceProvider ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
             services.AddHangfire(options =>
@@ -38,15 +31,7 @@ namespace frontend
                 options.UseRedisStorage(RedisConnection);
             });
 
-            var container = new Container();
-            container.AddHangfireFrameworkServices();
-            
-            container.Configure(_ =>
-            {
-                _.Populate(services);
-            });
-
-            return container.GetInstance<IServiceProvider>();
+            services.AddHangfireFrameworkServices();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
