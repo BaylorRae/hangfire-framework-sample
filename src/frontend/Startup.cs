@@ -1,6 +1,7 @@
 ﻿using common;
 using frontend.Lib;
 using Hangfire;
+using Lamar;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -23,15 +24,21 @@ namespace frontend
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public void ConfigureContainer(ServiceRegistry services)
         {
+            // Also exposes Lamar specific registrations
+            // and functionality
+            services.IncludeRegistry<CommonRegistry>();
+            services.Scan(s =>
+            {
+                s.TheCallingAssembly();
+                s.WithDefaultConventions();
+            });
             services.AddControllersWithViews();
             services.AddHangfire(options =>
             {
                 options.UseRedisStorage(RedisConnection);
             });
-
-            services.AddHangfireFrameworkServices();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
