@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using services;
 using StackExchange.Redis;
@@ -31,7 +32,7 @@ namespace frontend
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddControllersWithViews();
             services.AddHangfire(options =>
             {
                 options.UseRedisStorage(RedisConnection);
@@ -49,7 +50,7 @@ namespace frontend
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -61,17 +62,17 @@ namespace frontend
             }
 
             app.UseStaticFiles();
-
-            app.UseHangfireDashboard("/hangfire", new DashboardOptions
+            app.UseRouting();
+            app.UseHangfireDashboard("/dashbard", new DashboardOptions
             {
                 Authorization = new[] {new DashboardAuthorizationFilter()}
             });
 
-            app.UseMvc(routes =>
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
+                endpoints.MapControllerRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

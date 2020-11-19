@@ -1,15 +1,22 @@
-FROM microsoft/aspnetcore-build:2.0
+FROM mcr.microsoft.com/dotnet/aspnet:3.1 AS base
+WORKDIR /app
+EXPOSE 80
+EXPOSE 443
 
-WORKDIR /src/app
+FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
+WORKDIR /src
+COPY ["core/core.csproj", "src/core/"]
+COPY ["common/common.csproj", " src/common/"]
+COPY ["services/services.csproj", " src/services/"]
+COPY ["worker/worker.csproj", " src/worker/"]
+COPY . .
+WORKDIR "/src/worker"
+RUN dotnet build "worker.csproj" -c Release -o /app/build
 
-COPY core/core.csproj /src/core/core.csproj
-COPY common/common.csproj /src/common/common.csproj
-COPY services/services.csproj /src/services/services.csproj
-COPY worker/worker.csproj .
-RUN dotnet restore
+FROM build AS publish
+RUN dotnet publish "worker.csproj" -c Release -o /app/publish
 
-COPY core/ /src/core/
-COPY common/ /src/common/
-COPY services/ /src/services/
-COPY worker/ ./
-CMD dotnet run
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "worker.dll"]

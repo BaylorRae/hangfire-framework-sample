@@ -1,15 +1,22 @@
-FROM microsoft/aspnetcore-build:2.0
+FROM mcr.microsoft.com/dotnet/aspnet:3.1 AS base
+WORKDIR /app
+EXPOSE 80
+EXPOSE 443
 
-WORKDIR /src/app
+FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
+WORKDIR /src
+COPY ["core/core.csproj", "src/core/"]
+COPY ["common/common.csproj", " src/common/"]
+COPY ["services/services.csproj", " src/services/"]
+COPY ["frontend/frontend.csproj", " src/frontend/"]
+COPY . .
+WORKDIR "/src/frontend"
+RUN dotnet build "frontend.csproj" -c Release -o /app/build
 
-COPY core/core.csproj /src/core/core.csproj
-COPY common/common.csproj /src/common/common.csproj
-COPY services/services.csproj /src/services/services.csproj
-COPY frontend/frontend.csproj .
-RUN dotnet restore
+FROM build AS publish
+RUN dotnet publish "frontend.csproj" -c Release -o /app/publish
 
-COPY core/ /src/core/
-COPY common/ /src/common/
-COPY services/ /src/services/
-COPY frontend/ ./
-CMD dotnet run
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "frontend.dll"]
